@@ -1,0 +1,15 @@
+{
+  "total_filas_leidas": 23412,
+  "total_registros_generados": 23412,
+  "fechas_formato_iso_corregidas": 3,
+  "magnitude_type_faltante": 3,
+  "depth_faltante": 0,
+  "magnitude_faltante": 0,
+  "tipos_evento_encontrados": [
+    "Earthquake",
+    "Explosion",
+    "Nuclear Explosion",
+    "Rock Burst"
+  ],
+  "errores": []
+}
