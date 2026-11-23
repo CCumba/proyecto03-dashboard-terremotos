@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Earthquake } from "../types";
-import { sampleEarthquakes } from "../data/sampleEarthquakes";
+import { fetchSismos } from "../firebase/firebaseConfig";
 
 interface UseEarthquakesResult {
   data: Earthquake[];
@@ -8,17 +8,19 @@ interface UseEarthquakesResult {
   error: string | null;
 }
 
-// En este sprint carga los datos de ejemplo (sampleEarthquakes) en vez del
-// database.json completo del Sprint 1; la forma del hook (data/loading/error)
-// es la misma que se usará cuando se conecte al archivo real.
 export function useEarthquakes(): UseEarthquakesResult {
   const [data, setData] = useState<Earthquake[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    setData(sampleEarthquakes);
-    setLoading(false);
+    fetchSismos()
+      .then((sismos) => setData(sismos))
+      .catch((err: unknown) => {
+        const message = err instanceof Error ? err.message : "Error al consultar Firebase.";
+        setError(message);
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   return { data, loading, error };
